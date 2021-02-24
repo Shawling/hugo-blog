@@ -1,0 +1,34 @@
+baseURL = "https://shawling.github.io/"
+languageCode = "cn-zh"
+footnoteReturnLinkContents = "↩"
+title = "无内鬼，写点东西"
+theme = "hugo-theme-cactus-plus"
+
+# Set the value to true if your site include CJK (Chinese, Japanese, and Korean languages) characters
+hasCJKLanguage = false
+[params]
+	# enableSummary = true
+	# Set the value to true if use description in post front matter replace content summary
+	useDescriptionReplaceSummary = false
+
+	# Navigation links
+	home = "主页"
+	about = "关于"
+	archive = "归档"
+	subscribe = "订阅"
+
+	olderPosts = "旧"
+	newerPosts = "新"
+	copyright = ""
+
+	# show latest posts in single page
+	showLatestPosts = false
+	readMore = ""
+
+	# Choose a font for the social icons in the footer. Either "mono-social" or "font-awesome"
+	iconFont = "font-awesome"
+  # The social icons can be styled differently if you use mono as font - circle, rounded, or empty
+  socialIconStyle = ""
+
+[social]
+	github = "https://github.com/Shawling"
