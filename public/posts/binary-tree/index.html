@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="cn-zh">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		
+		
+		<meta name="generator" content="Hugo 0.80.0" />
+		<title>二叉树 &middot; 无内鬼，写点东西</title>
+		<link rel="shortcut icon" href="https://shawling.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://shawling.github.io/css/style.css">
+		<link rel="stylesheet" href="https://shawling.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://shawling.github.io/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://shawling.github.io/'> <span class="arrow">←</span>主页</a>
+	
+	<a href='https://shawling.github.io/posts'>归档</a>
+	<a href='https://shawling.github.io/tags'>Tags</a>
+	<a href='https://shawling.github.io/about'>关于</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        二叉树
+                    </h1>
+                    <h2 class="headline">
+                    Jan 28, 2021 11:37
+                    · 34 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://shawling.github.io/tags/"></a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p>完全二叉树存储在数组中时，所有元素可以根据根元素的下标地址计算得出，所以完全二叉树适合用数组存储</p>
+<p>堆就是一种完全二叉树，最常用的存储方式就是数组</p>
+<p>二叉树的遍历</p>
+<p>前中后序遍历指的是根节点的遍历顺序，左节点一定在右节点之前遍历</p>
+<p>二叉查找树</p>
+<p>利用二叉树的结构，并赋予左小右大的特性来储存数据</p>
+<p>查找</p>
+<p>递归思路查找</p>
+<p>插入</p>
+<p>递归思路找到父节点，并插入为叶子节点</p>
+<p>删除</p>
+<p>没有子节点：直接删除</p>
+<p>有一个子节点：将父节点指向自己的指针指向子节点</p>
+<p>有两个或子节点：找到右子树中最小的节点（必没有左节点），将这个节点删除并替换自己，这个节点的删除操作参见上两种方法</p>
+<p>平衡二叉查找树</p>
+<p>二叉查找树最好状态是一颗完全二叉树，最坏状态是一个链表</p>
+<p>平衡二叉树的严格定义是这样的：二叉树中任意一个节点的左右子树的高度相差不能大于 1。从这个定义来看，上一节我们讲的完全二叉树、满二叉树其实都是平衡二叉树，但是非完全二叉树也有可能是平衡二叉树。</p>
+<p>平衡二叉查找树不仅满足上面平衡二叉树的定义，还满足二叉查找树的特点。</p>
+<p>平衡二叉查找树与散列表</p>
+<ol>
+<li>散列表不支持按顺序区间遍历，需要额外数据结构（链表等）支持</li>
+<li>散列表由于散列冲突的存在，装载因子不能太大，会浪费一定空间。同时散列冲突会导致散列表的性能不稳定</li>
+<li>散列表在扩容时需要开辟新空间，转移新旧数据等，查找性能与空间使用都不太稳定</li>
+</ol>
+<p>红黑树</p>
+<p>红黑树是最常用的平衡二叉查找树。他通过几个定义，保证了自己的最大高度是2*logn</p>
+<ol>
+<li>根节点是黑色的；</li>
+<li>每个叶子节点都是黑色的空节点（NIL），也就是说，叶子节点不存储数据；</li>
+<li>任何相邻的节点都不能同时为红色，也就是说，红色节点是被黑色节点隔开的；</li>
+<li>每个节点，从该节点到达其可达叶子节点的所有路径，都包含相同数目的黑色节点；</li>
+</ol>
+<p>由来： 解决二叉查找树性能退化的问题</p>
+<p>特性：近似平衡，最大高度是O(logn)</p>
+<p>适用场景：动态插入删除查找的场景，同时对性能稳定性要求高</p>
+<p>缺点：实现比较复杂，可以用跳表替代</p>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/Shawling">
+        <i class="fa fa-github"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> 
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://shawling.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://shawling.github.io/js/main.js"></script>
+<script src="https://shawling.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="cn-zh">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		
+		
+		<meta name="generator" content="Hugo 0.80.0" />
+		<title>堆和堆的应用 &middot; 无内鬼，写点东西</title>
+		<link rel="shortcut icon" href="https://shawling.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://shawling.github.io/css/style.css">
+		<link rel="stylesheet" href="https://shawling.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://shawling.github.io/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://shawling.github.io/'> <span class="arrow">←</span>主页</a>
+	
+	<a href='https://shawling.github.io/posts'>归档</a>
+	<a href='https://shawling.github.io/tags'>Tags</a>
+	<a href='https://shawling.github.io/about'>关于</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        堆和堆的应用
+                    </h1>
+                    <h2 class="headline">
+                    Feb 2, 2021 18:56
+                    · 36 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://shawling.github.io/tags/"></a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <ol>
+<li>是一个完全二叉树</li>
+<li>堆中每个节点的值都大于等于（或小于等于）其左右子节点的值，分别对应大顶堆，小顶堆</li>
+</ol>
+<p>因为完全二叉树适合用数组存储，所以堆通常放在一个数组中</p>
+<p>堆的存储下标从1开始，方便计算（哨兵）。加入节点为i，左节点的地址为2<em>i，右节点的位置为2</em>i + 1</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9e32yb5nj30ai0ba0sw.jpg" alt=""></p>
+<p>插入</p>
+<p>由于性质1，堆的插入直接放在数组尾部。假设是大顶堆，如果插入值比父节点小，则直接计算地址交换，直到循环到根节点。</p>
+<p>插入操作时间复杂度为O(logn)</p>
+<p>这是从下往上的堆化方法</p>
+<p>删除顶部元素</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9e3x8bv3j30vq0nstb2.jpg" alt=""></p>
+<p>删除顶部节点后，拿最右侧节点填补，并拿取左右子节点的最大值进行交换，直到到达底部，这是从上往下的堆化方法</p>
+<p>堆排序</p>
+<p>建堆</p>
+<p>使用从上往下的方法建堆，时间复杂度O(n)</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9e4865i7j30vy0m4jt3.jpg" alt=""></p>
+<p>排序</p>
+<p>先建堆，然后逐个将顶部元素交换到最后，再堆化，可以得到一个最大值。循环整个数组，可以得到排好序的数组。时间复杂度O(nlogn)</p>
+<p>堆排序时间复杂度跟快排差不多，但是</p>
+<ol>
+<li>在遍历有序数组时，每次选择时内存不连续，无法很好用到cpu缓存</li>
+<li>建堆的第一步会把数组打乱，对于相对有序的数据，增加了逆序度，变相增加了操作次数。而快排的操作次数不会多于逆序度</li>
+</ol>
+<p>所以快排在排序方面比堆排序更常用</p>
+<p>堆的其他应用</p>
+<p>堆在排序时，没有快排好用。但是如果需要一个插入，取出性能稳定的有序数据集时，堆比较好用。</p>
+<p>堆的插入，删除数据并堆化复杂度为O(logn)。如果是快排排序号的数组，插入复杂度为O(n) （二分查找到位置后再逐个后移元素插入），删除同理。所以堆的动态更新性能比已排序数组好。</p>
+<p>优先队列类型</p>
+<p>优先队列一般用堆来实现，插入数据，删除数据都是O(logn)</p>
+<p>合并有序小文件（比如日志文件）</p>
+<p>建立一个堆，节点数量等于文件数量k，从多个小文件中读取第一个数据进堆并堆化。然后从堆顶取出一个数据，同时从它所属的文件中再读取一个数据放到堆顶并堆化，复杂度O(logk)。总的复杂度O(nlogk)，需要的额外内存空间O(k)</p>
+<p>计时器</p>
+<p>求TOPK类型</p>
+<p>求动态数据集的中位数</p>
+<p>先将数据从小到大排序，将前半部分n/2或n/2+1放入大顶堆，将后半部分放入小顶堆。这样子两个堆头（偶数）或者大顶堆堆头（奇数）就是好数据集的中位数。</p>
+<p>在有新数据时，先与大顶堆比较，如果小于等于堆头，则放入大顶堆，如果节点数超过一半，则删除堆头并放入小顶堆，维持两个堆规范。</p>
+<p>这样子求动态数据集的中位数复杂度为O(1)，插入新数据复杂度为O(logn)</p>
+<p>求百分位数据同理</p>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/Shawling">
+        <i class="fa fa-github"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> 
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://shawling.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://shawling.github.io/js/main.js"></script>
+<script src="https://shawling.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>

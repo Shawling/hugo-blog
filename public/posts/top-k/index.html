@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="cn-zh">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		
+		
+		<meta name="generator" content="Hugo 0.80.0" />
+		<title>前K大的数 &middot; 无内鬼，写点东西</title>
+		<link rel="shortcut icon" href="https://shawling.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://shawling.github.io/css/style.css">
+		<link rel="stylesheet" href="https://shawling.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://shawling.github.io/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://shawling.github.io/'> <span class="arrow">←</span>主页</a>
+	
+	<a href='https://shawling.github.io/posts'>归档</a>
+	<a href='https://shawling.github.io/tags'>Tags</a>
+	<a href='https://shawling.github.io/about'>关于</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        前K大的数
+                    </h1>
+                    <h2 class="headline">
+                    Jan 29, 2021 16:04
+                    · 18 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://shawling.github.io/tags/"></a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p><strong>TOP K</strong></p>
+<p>从数组中找到最大的K的数</p>
+<p>思路一：</p>
+<p>将整个数组排序，使用快排，O(n*logn)</p>
+<p>思路二：</p>
+<p>K后面的元素排序无意义，可以去掉这个步骤。使用冒泡排序，每次选择最大的一个数浮上去，重复K次后，可以得到结果，O(n*k)</p>
+<p>思路三：</p>
+<p>K个元素的排序也无意义，使用堆排序。取出前k个元素，建立一个小顶堆，O(k)，然后遍历剩下的n-k个元素，每个元素进堆为O(logk)，整个复杂度为O(k) + O((n-k)logk) = O(nlogk)</p>
+<p>思路四：</p>
+<p>分治法核心思路是把大问题分解为小问题，然后分开解决，最终解决大问题。</p>
+<p>减治法是把大问题分解为小问题，然后只解决其中一个分支，也可以解决大问题。比如二分查找，每次只需要查找某一边，复杂度为O(logn).</p>
+<p>这个问题也可以用减治法，称为随机选择。</p>
+<p>利用快排的dopivot函数，将数组分为以i为中心的左大右小部分（分解问题），判断i与k的大小，可以知道k在i的哪一边。多次循环可以分出以k为中心的左大右小区域。循环次数与k大小无关，dopivot函数复杂度为O(n)，所以整个随机选择的复杂度为O(n)</p>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/Shawling">
+        <i class="fa fa-github"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> 
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://shawling.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://shawling.github.io/js/main.js"></script>
+<script src="https://shawling.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,8 @@
+[submodule "shawling.github.io"]
+	path = shawling.github.io
+	url = https://github.com/Shawling/shawling.github.io.git
+	branch = main
+[submodule "public"]
+	path = public
+	url = https://github.com/Shawling/shawling.github.io.git
+	branch = master

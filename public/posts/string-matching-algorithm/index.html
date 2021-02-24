@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cn-zh">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		
+		
+		<meta name="generator" content="Hugo 0.80.0" />
+		<title>字符串匹配 &middot; 无内鬼，写点东西</title>
+		<link rel="shortcut icon" href="https://shawling.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://shawling.github.io/css/style.css">
+		<link rel="stylesheet" href="https://shawling.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://shawling.github.io/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://shawling.github.io/'> <span class="arrow">←</span>主页</a>
+	
+	<a href='https://shawling.github.io/posts'>归档</a>
+	<a href='https://shawling.github.io/tags'>Tags</a>
+	<a href='https://shawling.github.io/about'>关于</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        字符串匹配
+                    </h1>
+                    <h2 class="headline">
+                    Feb 24, 2021 15:47
+                    · 47 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p><strong>BF</strong>算法</p>
+<p>暴力破解，从头开始，逐一在主串中比对模式串的每个字符，直到匹配成功。O(n*m)</p>
+<p><strong>RK</strong>算法（RabinKarp）</p>
+<p>设计一个哈希算法，将字符串映射为一个整型。将模式串与子串的O(m)复杂度的比较转换为整型之间的比较。</p>
+<p>哈希算法例子</p>
+<p>将只有小写字母的字符串看成一个26进制数，然后转换为10进制数，这样子不同字符串得到的10进制数都是完全不同的。没有哈希冲突。同时每个子串的哈希值可以通过上一个相邻子串的哈希值快速算出。求出全部哈希值O(n）</p>
+<p>但是这种方法可能会导致整型溢出。</p>
+<p>例子2</p>
+<p>将每个字母的ascii码相加，这样子会哈希冲突，但只要最后再加多一个完整子串判断即可</p>
+<p>将主串的所有子串（n-m+1条），计算哈希值，将模式串计算哈希值，逐条对比，直到匹配成功O(n)</p>
+<p><strong>golang</strong>中的实现</p>
+<p>当模式串短于63，并且主串短于64时，使用BF暴力搜索。</p>
+<p>当模式串与主串都比较长时，使用RK算法。计算哈希值时的运行时溢出，会截取32位长度</p>
+<p><strong>BM</strong>算法</p>
+<p><strong>Trie</strong>树（字典树）</p>
+<p>将字符串拆为一个个字符，每个字符为一个节点。从根节点到红色节点的遍历路径就是字符串本身。</p>
+<p>树的构建</p>
+<p>树的子节点用能包含字符集长度的数组表示，直接用child[ascii]</p>
+<p>表示</p>
+<p>树的查询</p>
+<p>从第一个字符节点开始查询，直到完全匹配并且为红色节点</p>
+<p>问题</p>
+<p>每个节点都需要保存一个字符集长度的指纹数组，远远超过本身表达的一个字节。同时，如果这个节点的子节点比较少，数组会有很大浪费</p>
+<p>应对策略</p>
+<ol>
+<li>可以用有序数组等数据结构替换这个子节点数组，或者用哈希表（会有一定空间浪费）</li>
+<li>对于只有一个子节点的节点，可以将它与子节点合并</li>
+</ol>
+<p>应用场景</p>
+<p>自动补全</p>
+<p>敏感词过滤</p>
+<p><em><a href="http://www.360doc.com/content/19/1115/10/33405611_873305276.shtml">http://www.360doc.com/content/19/1115/10/33405611_873305276.shtml</a></em></p>
+<p>设字符串长度为n，将敏感词（个数为t）构建成一个trie树，设树高度为h，使用3指针法，查找到字符串所有敏感词复杂度为O(n*h)</p>
+<p>若使用KMP精准匹配，查找所有单个敏感词复杂度为O(n+h)，查找到所有敏感词为O(t*(n+h))</p>
+<p><strong>AC</strong>自动机</p>
+<p>ac自动机就是在trie树的基础上用了KMP算法的思想</p>
+<p><strong>Sunday</strong>算法</p>
+<p><a href="https://www.jianshu.com/p/2e6eb7386cd3">https://www.jianshu.com/p/2e6eb7386cd3</a></p>
+<p>各种字符串匹配算法的使用场景与特点</p>
+<p><strong>BF</strong></p>
+<p>暴力匹配，适合主串和模式串都不太长的场景（比如小于64），O(m*n)</p>
+<p><strong>RK</strong></p>
+<p>需要设计好哈希算法，降低哈希冲突的概率。O(n)</p>
+<p><strong>KMP</strong></p>
+<p>通过优化BF过程中字符串移动的长度，是最常用的单模式串匹配算法。O(n+m)</p>
+<p><strong>Trie</strong>树</p>
+<p>多模式串匹配算法，构建一个前缀树。可以用来智能提示，也适合公共前缀较多的多模匹配场景。O(n*len),len是模式串平均长度</p>
+<p><strong>AC</strong>自动机</p>
+<p>trie树在KMP算法下的优化版本，适合大量文本中多模式串的查找，O(n)</p>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/Shawling">
+        <i class="fa fa-github"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> 
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://shawling.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://shawling.github.io/js/main.js"></script>
+<script src="https://shawling.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>
